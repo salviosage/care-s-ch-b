@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "patientId": "3cb248ba-be82-414f-b961-193db0d26e93",
+    "type": "Blood pressure",
+    "values": {
+      "systolic": 144,
+      "diastolic": 108
+    },
+    "date": "2025-09-02T12:04:28Z"
+  },
+  {
+    "id": 2,
+    "patientId": "3cb248ba-be82-414f-b961-193db0d26e93",
+    "type": "Blood pressure",
+    "values": {
+      "systolic": 139,
+      "diastolic": 105
+    },
+    "date": "2025-09-03T12:09:14Z"
+  },
+  {
+    "id": 4,
+    "patientId": "3cb248ba-be82-414f-b961-193db0d26e93",
+    "type": "Blood glucose",
+    "value": 81.3,
+    "date": "2025-09-01T12:01:55Z"
+  },
+  {
+    "id": 5,
+    "patientId": "3cb248ba-be82-414f-b961-193db0d26e93",
+    "type": "Blood glucose",
+    "value": 83.9,
+    "date": "2025-09-01T18:06:01Z"
+  },
+  {
+    "id": 6,
+    "patientId": "3cb248ba-be82-414f-b961-193db0d26e93",
+    "type": "Blood glucose",
+    "value": 84.1,
+    "date": "2025-09-01T23:50:19Z"
+  },
+  {
+    "id": 7,
+    "patientId": "708f9ddc-7c2c-4221-b0c3-3de2f0bcc078",
+    "type": "Blood glucose",
+    "value": 91.7,
+    "date": "2025-09-02T12:12:12Z"
+  },
+  {
+    "id": 8,
+    "patientId": "708f9ddc-7c2c-4221-b0c3-3de2f0bcc078",
+    "type": "Blood glucose",
+    "value": 79.5,
+    "date": "2025-09-02T18:02:44Z"
+  },
+  {
+    "id": 9,
+    "patientId": "708f9ddc-7c2c-4221-b0c3-3de2f0bcc078",
+    "type": "Blood glucose",
+    "value": 85.1,
+    "date": "2025-09-02T23:31:22Z"
+  },
+  {
+    "id": 10,
+    "patientId": "bc7da289-3863-4da4-89fa-3df4feec5c6a",
+    "type": "Blood pressure",
+    "values": {
+      "systolic": 161,
+      "diastolic": 117
+    },
+    "date": "2025-09-02T14:16:46Z"
+  },
+  {
+    "id": 11,
+    "patientId": "bc7da289-3863-4da4-89fa-3df4feec5c6a",
+    "type": "Body temperature",
+    "value": 39.8,
+    "date": "2025-09-01T15:30:04Z"
+  },
+  {
+    "id": 12,
+    "patientId": "bc7da289-3863-4da4-89fa-3df4feec5c6a",
+    "type": "Blood glucose",
+    "value": 97.2,
+    "date": "2025-09-02T16:38:51Z"
+  }
+]

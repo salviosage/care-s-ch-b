@@ -1,0 +1,15 @@
+jobs:
+  - job: TestApplication
+    displayName: 'Test the application'
+    steps:
+      - task: UseNode@1
+        inputs:
+          version: '22.x'
+        displayName: Select Node V22
+
+      - task: Bash@3
+        inputs:
+          filePath: az-pipelines/scripts/configure.sh
+        displayName: 'Install yarn and dependencies'
+
+      # todo add your tasks here
