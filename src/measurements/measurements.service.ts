@@ -6,29 +6,11 @@ import {
 import { DatabaseService } from 'src/database/database.service';
 import type { IMeasurement } from 'src/@types/measurement';
 
-export interface PageMeta {
-  page: number;
-  pageSize: number;
-  total: number;
-  totalPages: number;
-  hasNext: boolean;
-  hasPrev: boolean;
-}
-
 @Injectable()
 export class MeasurementsService {
   constructor(private readonly db: DatabaseService) {}
 
-  getAllForPatient(
-    userPatientIds: string[],
-    patientId: string,
-    page = 1,
-    pageSize = 20,
-  ): { data: IMeasurement[]; meta: PageMeta } {
-    if (!userPatientIds?.includes(patientId)) {
-      throw new ForbiddenException('You do not have access to this patient');
-    }
-
+  getAllForPatient(patientId: string, page = 1, pageSize = 20) {
     const all = this.db
       .getByPatientId(patientId)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -51,12 +33,15 @@ export class MeasurementsService {
     };
   }
 
-  setRead(userPatientIds: string[], id: number, read = true): IMeasurement {
+  setReadWithAccess(
+    allowedIds: string[],
+    id: number,
+    read = true,
+  ): IMeasurement {
     const m = this.db.getById(id);
     if (!m) throw new NotFoundException('Measurement not found');
-    if (!userPatientIds?.includes(m.patientId)) {
-      throw new ForbiddenException('You do not have access to this patient');
-    }
+    if (!allowedIds.includes(m.patientId))
+      throw new ForbiddenException('Forbidden');
     return this.db.updateRead(id, read);
   }
 }
