@@ -117,8 +117,8 @@ describe('Measurements (e2e)', () => {
     await app.init();
 
     db = app.get(DatabaseService);
-    // @ts-ignore test-only helper
-    db._reset(JSON.parse(JSON.stringify(seed)));
+    // test-only override of private helper
+    (db as any)._reset(JSON.parse(JSON.stringify(seed)));
   });
 
   afterAll(async () => {

@@ -1,15 +1,29 @@
-jobs:
-  - job: TestApplication
-    displayName: 'Test the application'
-    steps:
-      - task: UseNode@1
-        inputs:
-          version: '22.x'
-        displayName: Select Node V22
+parameters:
+  nodeVersion: '20.11.1'
 
-      - task: Bash@3
-        inputs:
-          filePath: az-pipelines/scripts/configure.sh
-        displayName: 'Install yarn and dependencies'
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: ${{ parameters.nodeVersion }}
+    displayName: 'Use Node.js ${{ parameters.nodeVersion }}'
+  - task: Cache@2
+    inputs:
+      key: 'node_modules | "$(Agent.OS)" | yarn.lock'
+      restoreKeys: |
+        node_modules | "$(Agent.OS)"
+      path: $(Build.SourcesDirectory)/node_modules
+    displayName: 'Cache node_modules (best-effort)'
 
-      # todo add your tasks here
+  - task: Bash@3
+    inputs:
+      filePath: az-pipelines/scripts/configure.sh
+    displayName: 'Install yarn and dependencies'
+
+  - script: yarn run lint
+    displayName: 'Static code analysis (ESLint)'
+
+  - script: yarn test
+    displayName: 'Run unit tests'
+
+  - script: yarn test:e2e
+    displayName: 'Run E2E tests'

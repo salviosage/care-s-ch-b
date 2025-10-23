@@ -1,0 +1,16 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - stage: Test
+    displayName: 'Lint + Unit + E2E'
+    jobs:
+      - job: run_tests
+        displayName: 'Run Tests'
+        steps:
+          - template: az-pipelines/templates/test.yaml
+            parameters:
+              nodeVersion: '20.11.1'
