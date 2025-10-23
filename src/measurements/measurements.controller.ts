@@ -1,33 +1,50 @@
 import {
+  BadRequestException,
+  Body,
   Controller,
   Get,
-  NotImplementedException,
-  Param,
+  ParseIntPipe,
   Patch,
   Query,
+  Param,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { MeasurementsService } from './measurements.service';
 import type { IMeasurement } from 'src/@types/measurement';
-import { GetAllMeasurementsRequestDto } from './dtos/get-all-measurements.request.dto';
+import { GetMeasurementsQueryDto } from './dtos/get-measurements.query.dto';
+import { PatchReadRequestDto } from './dtos/patch-read.request.dto';
 import { User } from './decorators/user.decorator';
 
 @Controller('/measurements')
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 export class MeasurementsController {
-  constructor(private readonly measurementsService: MeasurementsService) {}
+  constructor(private readonly measurements: MeasurementsService) {}
 
-  @Get('/')
-  getAllMeasurements(
-    @User() user: string[],
-    @Query() query: GetAllMeasurementsRequestDto,
-  ): IMeasurement[] {
-    throw new NotImplementedException();
+  // GET all measurements for a patient, paginated
+  @Get()
+  getAll(
+    @User() userPatientIds: string[],
+    @Query() query: GetMeasurementsQueryDto,
+  ) {
+    if (!query.patientId) {
+      throw new BadRequestException('patientId is required');
+    }
+    return this.measurements.getAllForPatient(
+      userPatientIds,
+      query.patientId,
+      query.page,
+      query.pageSize,
+    );
   }
 
-  @Patch('/:id')
-  tagMeasurement(
-    @User() user: string[],
-    @Param('id') id: number,
+  // Update the `read` flag of a measurement
+  @Patch(':id/read')
+  setRead(
+    @User() userPatientIds: string[],
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: PatchReadRequestDto,
   ): IMeasurement {
-    throw new NotImplementedException();
+    return this.measurements.setRead(userPatientIds, id, body.read);
   }
 }
