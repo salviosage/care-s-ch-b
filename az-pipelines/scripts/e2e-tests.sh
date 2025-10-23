@@ -1,1 +1,4 @@
-# todo run e2e tests
+#!/usr/bin/env bash
+set -euo pipefail
+
+npm run test:e2e

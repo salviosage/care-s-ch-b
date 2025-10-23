@@ -32,7 +32,7 @@ describe('MeasurementsController', () => {
     }).compile();
 
     controller = module.get<MeasurementsController>(MeasurementsController);
-    service = module.get(MeasurementsService) as MeasurementsServiceMock;
+    service = module.get(MeasurementsService);
   });
 
   describe('GET /measurements', () => {

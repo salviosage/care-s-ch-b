@@ -1,1 +1,4 @@
-# todo run eslint
+#!/usr/bin/env bash
+set -euo pipefail
+
+npm run lint
